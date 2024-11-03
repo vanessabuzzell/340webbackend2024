@@ -31,13 +31,13 @@ async function getInventoryByClassificationId(classification_id) {
  * ************************** */
 async function getCarDetail(inv_id) {
     try{
-        const carData = await pool.query(
+        const data = await pool.query(
           `SELECT public.inventory.inv_id AS i 
           FROM public.inventory
           WHERE i = $1`,
           [inv_id]
         )
-        return carData.rows
+        return data.rows
     } catch (error) {
         console.error("getCarDetail error " + error)
     }

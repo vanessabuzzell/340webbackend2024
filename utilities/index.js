@@ -62,9 +62,9 @@ Util.buildClassificationGrid = async function(data){
 /* **************************************
 * Build the Car Details view HTML
 * ************************************ */
-Util.buildCarDetailGrid = async function(carData){
+Util.buildCarDetailGrid = async function(data){
     let grid
-    if(carData.length > 0){
+    if(data.length > 0){
         grid = '<ul id="carDetail-display">'
         data.forEach(vehicle => { 
             grid += '<li>'
