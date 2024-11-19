@@ -24,7 +24,6 @@ Util.getNav = async function (req, res, next) {
     return list 
 }
 
-module.exports = Util
 
 /* **************************************
 * Build the classification view HTML
@@ -68,20 +67,16 @@ Util.buildCarDetailGrid = async function(data){
         grid = '<ul id="carDetail-display">'
         data.forEach(vehicle => { 
             grid += '<li>'
-            grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
-            + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-            + 'details"><img src="' + vehicle.inv_thumbnail 
-            +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-            +' on CSE Motors" /></a>'
-            grid += '<div class="namePrice">'
-            grid += '<hr />'
-            grid += '<h2>'
-            grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
-            + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
-            + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
-            grid += '</h2>'
-            grid += '<span>$' 
-            + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+            grid += '<div class="vehicle-image">';
+            grid += 'img src"' + vehicle.inv_image + '"alt=Image of'
+            grid += vehicle.inv_make + '' + vehicle.inv_model 
+            grid += ' on CSE Motors" title=' + vehicle.inv_make + ' ' + vehicle.inv_model + 'details" />';
+            grid += '</div>'
+            grid += '<div class="vehicle-info">';
+            grid += '<p>Year: ' + vehicle.inv_year + '</p>';
+            grid += '<p>Miles: ' + vehicle.inv_miles + '</p>';
+            grid += '<p>Color: ' + vehicle.inv_color + '</p>';
+            grid += '<span>$' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>';
             grid += '</div>'
             grid += '</li>'
         })
@@ -91,3 +86,16 @@ Util.buildCarDetailGrid = async function(data){
     }
     return grid
 }
+
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) =>
+     Promise.resolve(fn(req, res, next)).catch(next)
+
+
+
+module.exports = Util

@@ -4,7 +4,11 @@ const baseController = {}
 baseController.buildHome = async function(req, res){
     const nav = await utilities.getNav()
     //just a test line
-    //req.flash("notice", "This is a flash message.")
-    res.render("index", {title:"Home", nav})
+    req.flash("notice", "This is a flash message.")
+    res.render("index", {
+        title:"Home",
+         nav,
+         errors: null
+        })
 }
 module.exports = baseController
