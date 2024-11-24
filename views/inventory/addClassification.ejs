@@ -1,0 +1,24 @@
+<!--The Content Heading-->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+        res.redirect("/")
+        } %>
+        <!--A Message Block-->
+        <%- messages() %>
+<!--The errors for more than one Display-->
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+            <%  }) %>
+        </ul>
+        <% } %> 
+    
+<form class="addClass"  method="post">
+    
+    <label for="addNewClass">Input New Classification For Car:</label>
+    <br>
+    <input type="text" name="classification_name" id="className" required value="<%= locals.classification_name %>">
+    <button type="submit" >Submit Name</button>
+</form>

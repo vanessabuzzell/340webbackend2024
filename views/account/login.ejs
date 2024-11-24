@@ -6,20 +6,32 @@
         } %>
         <!--A Message Block-->
         <%- messages() %>
+<!--The errors for more than one Display-->
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+            <%  }) %>
+        </ul>
+        <% } %> 
          <!--A login html Block-->
-         <form action="/submit" method="post">
+    <div class="accountContainer">
+        <form id="account_form" action="/account/login" method="post">
             <label for="email">Email:</label>
             <br>
-            <input type="email" id="email" required>
+            <input type="email" name="account_email" id="email" required value="<%= locals.account_email %>">
             <br><br>
             <label for="password">Password:</label>
             <br>
-            <input type="password" id="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
-            <br><br>
-            <button type="submit" value="Login">Login</button>
+            <input type="password" name="account_password" id="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required><br><br>
+            <div class="passwordRequirements">
+                <p>There must be at least 12 characters, one must be a number, one must be a lowercase letter, one must be a capital letter, and one must be a non-alphanumeric character."</p>
+            </div>
+            
+            <button type="submit" >Login</button>
             <p>No account? <a href="/account/register">Sign-up</a></p>
         </form>
-
+    </div>
 
 
 

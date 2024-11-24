@@ -22,6 +22,7 @@
 
 * {
   box-sizing: border-box;
+  padding: 10px;
 }
 h1 {
   color: var(--dark-grey);
@@ -39,9 +40,10 @@ h3 {
 body {
   margin: 0;
   font-family: var(--font-body);
+  
   font-size: var(--font-base);
   color: var(--dark-grey);
-  background-color: #f7f7ff;
+  background-color: var(--primary-color);
 }
 
 img {
@@ -53,7 +55,7 @@ img {
 
 header{
   height: 120px;
-  background-color: var(--light-grey);
+  background-color: var(--tertiary-color);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -119,3 +121,26 @@ li:hover, li.active {
   background-color: var(--secondary-color);
   color: #232c33;
 }
+
+/* account views */
+.accountContainer{
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: var(--tertiary-color);
+  
+}
+
+
+/* messages views */
+.notice{
+  text-align: center;
+  flex: auto;
+}
+
+
+
+/* management views */
+
+
+
+/* car reviews */
