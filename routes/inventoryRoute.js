@@ -40,7 +40,7 @@ console.log("inventory 8")
 // Process the add New Inventory attempt
 router.post(
     "/addNewInventory",
-    regValidate.addNewInvRules(),
+    //regValidate.addNewInvRules(),
     //regValidate.checkInvData,
     utilities.handleErrors(invController.registerNewInventory)
   )
