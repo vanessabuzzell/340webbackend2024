@@ -3,6 +3,41 @@ const utilities = require("./index.js")
   const validate = {}
   const invModel = require("../models/inventory-model") 
 
+    /*  **********************************
+    *  addClassification Data Validation Rules
+    * ********************************* */
+    validate.addClassRules = () => {
+      return [
+      
+         // make is required and must be string
+         body("classification_name")
+         .trim()
+         .escape()
+         .isLength({ min: 1 })
+         .withMessage("Please provide a vehicle classification name."), // on error this message is sent.
+      ]
+    }
+    
+    /* ******************************
+     * Check data and return errors or continue to managment page
+     * ***************************** */
+    validate.checkClassData = async (req, res, next) => {
+      const { classification_name } = req.body
+      let errors = []
+      errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("inventory/addClassification", {
+          errors,
+          title: "Add Classification Page",
+          nav,
+          classification_name,
+        })
+        return
+      }
+      next()
+    }
+
   /*  **********************************
   *  inventory Data Validation Rules
   * ********************************* */
@@ -12,7 +47,6 @@ const utilities = require("./index.js")
       body("inv_make")
       .trim()
       .escape()
-      .notEmpty()
       .isLength({ min: 1 })
       .withMessage("Please provide a make of vehicle."), // on error this message is sent.
     
@@ -20,25 +54,20 @@ const utilities = require("./index.js")
       body("inv_model")
       .trim()
       .escape()
-      .notEmpty()
       .isLength({ min: 2 })
       .withMessage("Please provide the model of the vehicle."), // on error this message is sent.
 
       // year is required and must be 4 numbers
       body("inv_year")
       .trim()
-      .notEmpty()
-      .isyear({
-        minNumbers: 4,
-        maxNumbers: 4,
-      })
+      .escape()
+      .isLength({ min: 4 })
       .withMessage("Year does not meet requirements."),
 
       // description is required and must be string
       body("inv_description")
       .trim()
       .escape()
-      .notEmpty()
       .isLength({ min: 1 })
       .withMessage("Please provide a description of vehicle."), // on error this message is sent.
 
@@ -46,7 +75,6 @@ const utilities = require("./index.js")
       body("inv_image")
       .trim()
       .escape()
-      .notEmpty()
       .isLength({ min: 1 })
       .withMessage("Please provide a image."), // on error this message is sent.
 
@@ -54,7 +82,6 @@ const utilities = require("./index.js")
       body("inv_thumbnail")
       .trim()
       .escape()
-      .notEmpty()
       .isLength({ min: 1 })
       .withMessage("Please provide a thumbnail."), // on error this message is sent.
 
@@ -62,14 +89,12 @@ const utilities = require("./index.js")
       body("inv_price")
       .trim()
       .escape()
-      .notEmpty()
       .isLength({ min: 1 })
       .withMessage("Please provide a price."), // on error this message is sent.
 
       //miles is required and must be string
       body("inv_miles")
       .trim()
-      .escape()
       .notEmpty()
       .isLength({ min: 1 })
       .withMessage("Please provide amount of miles."), // on error this message is sent.
@@ -78,7 +103,6 @@ const utilities = require("./index.js")
       body("inv_color")
       .trim()
       .escape()
-      .notEmpty()
       .isLength({ min: 1 })
       .withMessage("Please provide a make of vehicle."), // on error this message is sent.
 
@@ -86,7 +110,6 @@ const utilities = require("./index.js")
       body("classification_id")
       .trim()
       .escape()
-      .notEmpty()
       .isLength({ min: 1 })
       .withMessage("Please provide a classification for the  vehicle."), // on error this message is sent.
 
@@ -123,16 +146,6 @@ const utilities = require("./index.js")
         }
       }),
   
-    
-      // year is required and must be 4 numbers
-      body("inv_year")
-      .trim()
-      .notEmpty()
-      .isyear({
-        minNumbers: 4,
-        maxNumbers: 4,
-      })
-      .withMessage("Year does not meet requirements."),
     ]
   }
   
@@ -175,41 +188,7 @@ const utilities = require("./index.js")
     next()
   }
   
-  /*  **********************************
-    *  addClassification Data Validation Rules
-    * ********************************* */
-  validate.addClassRules = () => {
-    return [
-    
-       // make is required and must be string
-       body("classification_name")
-       .trim()
-       .escape()
-       .notEmpty()
-       .isLength({ min: 1 })
-       .withMessage("Please provide a vehicle classification name."), // on error this message is sent.
-    ]
-  }
-  
-  /* ******************************
-   * Check data and return errors or continue to managment page
-   * ***************************** */
-  validate.checkClassData = async (req, res, next) => {
-    const { classification_name } = req.body
-    let errors = []
-    errors = validationResult(req)
-    if (!errors.isEmpty()) {
-      let nav = await utilities.getNav()
-      res.render("inventory/managment", {
-        errors,
-        title: "Managment Page",
-        nav,
-        classification_name,
-      })
-      return
-    }
-    next()
-  }
+
  
  
 

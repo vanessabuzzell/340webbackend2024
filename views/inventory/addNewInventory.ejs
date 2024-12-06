@@ -22,42 +22,53 @@
                 <br>
                 <input type="text" name="inv_make" id="invMake" required value="<%= locals.inv_make %>">
                 <br>
+                <br>
                 <label for="invModel">Vehicle Model:</label>
                 <br>
                 <input type="text" name="inv_model" id="invModel" required value="<%= locals.inv_model %>">
+                <br>
+                <br>
                 <label for="invYear">Vehicle Year :</label>
                 <br>
-                <input type="date" name="inv_year" id="invYear" required value="<%= locals.inv_year %>">
+                <input type="text" name="inv_year" id="invYear" required value="<%= locals.inv_year %>">
+                <br>
                 <br>
                 <label for="invDescription">Vehicle Description:</label>
                 <br>
                 <input type="text" name="inv_description" id="invDescription" required value="<%= locals.inv_description %>">
-                <label for="invImage">Vehicle Make:</label>
                 <br>
-                <input type="image" name="inv_make" id="invImage" required value="<%= locals.inv_image %>">
+                <br>
+                <label for="invImage">Vehicle Image:</label>
+                <br>
+                <input type="text" name="inv_image" id="invImage" required value="<%= locals.inv_image %>">
+                <br>
                 <br>
                 <label for="invThumbnail">Vehicle Thumbnail:</label>
                 <br>
-                <input type="image" name="inv_thumbnail" id="invThumbnail" required value="<%= locals.inv_thumbnail %>">
+                <input type="text" name="inv_thumbnail" id="invThumbnail" required value="<%= locals.inv_thumbnail %>">
+                <br>
+                <br>
                 <label for="invPrice">Vehicle Price:</label>
                 <br>
-                <input type="number" name="inv_price" id="invPrice" required value="<%= locals.inv_price %>">
-                
+                <input type="text" name="inv_price" id="invPrice" required value="<%= locals.inv_price %>">
+                <br>
                 <br>
                 <label for="invMiles">Vehicle Miles:</label>
                 <br>
                 <input type="number" name="inv_miles" id="invMiles" required value="<%= locals.inv_miles %>">
-                <br><br>
+                <br>
+                <br>
                 <label for="inv_color">Vehicle Color:</label>
                 <br>
-                <input type="color" name="inv_color" id="invColor" required value="<%= locals.inv_color %>">
+                <input type="text" name="inv_color" id="invColor" required value="<%= locals.inv_color %>">
                 <br>
-                <label for="password">Password:</label>
                 <br>
-                <input type="password" name="account_password" id="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required><br><br>
-                <div class="passwordRequirements">
-                    <p>There must be at least 12 characters, one must be a number, one must be a lowercase letter, one must be a capital letter, and one must be a non-alphanumeric character."</p>
-                </div>
+                <label for="classification_name">Car Classification:</label>
+                <br>
+                <input type="text" name="classification_name" id="classificationName" required value="<%= locals.classification_name %>">
+                
+                <br>
+                <br>
                 
                 <button type="submit" >Register</button>
             </form>

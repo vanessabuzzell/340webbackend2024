@@ -84,8 +84,10 @@ invCont.buildAddClassification = async function (req, res, next) {
       "notice",
       `Congratulations, you\'re registered ${classification_name}, to the class database.`
     )
-    res.status(201).render("inventory/managment", {
-      title: "Managment",
+    let nav = await utilities.getNav()
+    
+    res.status(201).render("inventory/management", {
+      title: "Management",
       nav,
       errors: null,
     })

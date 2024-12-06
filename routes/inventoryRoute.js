@@ -32,15 +32,15 @@ console.log("inventory 7")
  //Route to send add New Classification to data
  router.post(
     '/addClassification', 
-    //regValidate.addClassRules(),
-    //regValidate.checkClassData,
+    regValidate.addClassRules(),
+    regValidate.checkClassData,
     utilities.handleErrors(invController.registerNewClass)
 );
 console.log("inventory 8")
 // Process the add New Inventory attempt
 router.post(
     "/addNewInventory",
-    //regValidate.addNewInvRules(),
+    regValidate.addNewInvRules(),
     //regValidate.checkInvData,
     utilities.handleErrors(invController.registerNewInventory)
   )
