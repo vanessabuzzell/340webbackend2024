@@ -46,11 +46,11 @@ invCont.buildByCarDetail = async function (req, res, next) {
  * ************************** */
 invCont.buildCarManagement = async function (req, res, next) {
     let nav = await utilities.getNav()
-    const classificationSelect = await utilities.buildClassificationList()
+    const classificationList = await utilities.buildClassificationList()
     res.render("inventory/management", {
         title: 'Inventory Managment',
         nav,
-        classificationSelect,
+        classificationList,
         errors: null,
     })
 
@@ -105,11 +105,11 @@ invCont.buildAddClassification = async function (req, res, next) {
   * *************************************** */
 invCont.buildAddVehicle = async function (req, res, next) {
   let nav = await utilities.getNav()
-  let buildClassificationList = await utilities.buildClassificationList()
+  let classificationList = await utilities.buildClassificationList()
   res.render("inventory/addNewInventory", {
     title: "Inventory Register",
     nav,
-    buildClassificationList,
+    classificationList,
     errors: null,
   })
 }
@@ -119,7 +119,7 @@ invCont.buildAddVehicle = async function (req, res, next) {
 * *************************************** */
 invCont.registerNewInventory = async function (req, res) {
   let nav = await utilities.getNav()
-  const { inv_make, inv_model,inv_year,inv_description,inv_image,inv_thumbnail,inv_price,inv_miles, inv_color, } = req.body
+  const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
 
 
   const regResult = await invModel.addNewInventory(
@@ -131,7 +131,8 @@ invCont.registerNewInventory = async function (req, res) {
     inv_thumbnail,
     inv_price,
     inv_miles, 
-    inv_color
+    inv_color,
+    classification_id
   )
   
 
@@ -140,14 +141,14 @@ invCont.registerNewInventory = async function (req, res) {
       "notice",
       `Congratulations, you\'re Inventory registered a ${inv_make}, ${inv_model}, ${inv_year}.`
     )
-    res.status(201).render("inventory/addNewInventory", {
+    res.render("inventory/management", {
       title: "Inventory Registration",
       nav,
       errors: null,
     })
   } else {
     req.flash("notice", "Sorry, adding Inventory failed.")
-    res.status(501).render("inventory/addNewInventory", {
+    res.render("inventory/addNewInventory", {
       title: "Inventory Registration",
       nav,
       errors: null,

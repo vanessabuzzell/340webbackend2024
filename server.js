@@ -68,6 +68,8 @@ app.use("/inv", inventoryRoute)
 app.use("/account/", accountRoute)
 // Account routes
 app.use("/account", require("./routes/accountRoute"))
+//Inventory edit Routes
+//app.use("/edit/#", inventoryUpdate)
 
 // get rid of favicon.ico
 app.get("/favicon.ico", (req, res, next)=> res.status(204).end());
