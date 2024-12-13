@@ -33,4 +33,7 @@ router.post(
 
   router.get("/managment", utilities.handleErrors(accController.buildManagment));
 
+  // Route to build login view
+router.get("/account", utilities.handleErrors(accController.buildAccount))
+
 module.exports = router;

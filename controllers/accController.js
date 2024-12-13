@@ -108,7 +108,7 @@ async function accountLogin(req, res) {
      } else {
        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
      }
-   return res.redirect("/account/")
+   return res.redirect("account/")
    }
   } catch (error) {
    return new Error('Access Forbidden')
@@ -116,7 +116,7 @@ async function accountLogin(req, res) {
  }
 
    /* ****************************************
-*  build registration view
+*  build account management view
 * *************************************** */
 async function buildManagment(req, res, next) {
   let nav = await utilities.getNav()
@@ -125,6 +125,17 @@ async function buildManagment(req, res, next) {
     nav,
     errors: null,
     
+  })
+}
+/* ****************************************
+*  build account view
+* *************************************** */
+async function buildAccount(req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("account/account", {
+    title: "Logged Into Account",
+    nav,
+    errors: null,
   })
 }
 
@@ -137,6 +148,7 @@ async function buildManagment(req, res, next) {
     buildRegister, 
     registerAccount, 
     accountLogin,
-    buildManagment, 
+    buildManagment,
+    buildAccount, 
     }
   

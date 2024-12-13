@@ -1,0 +1,51 @@
+<!--The Content Heading-->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+        res.redirect("/")
+        } %>
+        <!--A Message Block-->
+        <%- messages() %>
+<!--The errors for more than one Display-->
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+            <%  }) %>
+        </ul>
+        <% } %> 
+
+<!--Delete car html Block-->
+
+<div class="accountContanier">
+    <form id="deleteForm" method="post" >
+        <label for="invMake">Vehicle Make:</label>
+        <br>
+        <input readonly type="text" name="inv_make" id="invMake" required value="<%= locals.inv_make %>">
+        <br>
+        <br>
+        <label for="invModel">Vehicle Model:</label>
+        <br>
+        <input readonly type="text" name="inv_model" id="invModel" required value="<%= locals.inv_model %>">
+        <br>
+        <br>
+        <label for="invYear">Vehicle Year :</label>
+        <br>
+        <input readonly type="text" name="inv_year" id="invYear" required value="<%= locals.inv_year %>">
+        <br>
+        <br>
+        <label for="invPrice">Vehicle Price:</label>
+        <br>
+        <input readonly type="number" name="inv_price" id="invPrice" required value="<%= locals.inv_price %>">
+        <br>
+        <br>
+        <p>Confirm Deletion - The delete is permanent.</p>
+        <br>
+        <button type="delete" >Delete Inventory</button>
+        <script src="../../js/inv-update.js"></script>
+
+        <input type="hidden" name="inv_id"<% if(locals.inv_id) { %> value="<%= locals.inv_id %>"<% } %>>
+        
+    </form>
+</div>  
+ 
