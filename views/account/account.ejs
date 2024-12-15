@@ -1,9 +1,12 @@
 <!--The Content Heading-->
+
 <% if (title) { %>
     <h1><%= title %></h1>
+    
     <% } else {
         res.redirect("/")
         } %>
+
         <!--A Message Block-->
         <%- messages() %>
 <!--The errors for more than one Display-->
@@ -15,4 +18,7 @@
         </ul>
         <% } %> 
 
-<p action="/account">You're logged in!</p>
+<h2 action="/account">Account Management!</h2>
+<br>
+<a href="/account/editAccount">Edit Account Information</a>
+

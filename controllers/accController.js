@@ -133,15 +133,93 @@ async function buildManagment(req, res, next) {
 async function buildAccount(req, res, next) {
   let nav = await utilities.getNav()
   res.render("account/account", {
-    title: "Logged Into Account",
+    title: "Welcome Basic",
     nav,
     errors: null,
   })
 }
 
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+async function getAccountJSON(req, res, next) {
+  const account_email = parseInt(req.params.account_email)
+  const accountData = await accountModel.getAccountByEmail(account_email)
+  if (accountData[0].account_id) {
+    return res.json(accountData)
+  } else {
+    next(new Error("No data returned"))
+  }
+}
+/* ***************************
+ *  Build update account view
+ * ************************** */
+async function updateAccountView(req, res, next) {
+  const account_email = req.params.account_email
+  let nav = await utilities.getNav()
+  const itemDataArray = await accountModel.getAccountByEmail(account_email)
+  const itemData = itemDataArray[0];
+  const itemName = `${itemData.account_firstname} ${itemData.account_lastname}`
 
+  console.log("Rendering edit-inventory view with data:", itemData);
+  res.render("./account/editAccount", {
+    title: "Update " + itemName,
+    nav,
+    errors: null,
+    account_id: itemData.account_id,
+    account_firstname: itemData.account_firstname,
+    account_email: itemData.account_email,
+    account_type: itemData.account_type,
+    account_password: itemData.account_password,
+    
+   
+  })
+}
 
+/* ***************************
+ *  Update Account Data
+ * ************************** */
+async function updateAccount (req, res, next) {
+  let nav = await utilities.getNav()
+  const {
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_type,
+    account_password
+    
+  } = req.body
+  const updateResult = await invModel.updateAccount(
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_type,
+    account_password
+    
+  )
 
+  if (updateResult) {
+    const itemName = updateResult.account_firstname + " " + updateResult.account_lastname
+    req.flash("notice", `The ${itemName} was successfully updated.`)
+    res.redirect("account/account")
+  } else {
+    const itemName = `${inv_make} ${inv_model}`
+    req.flash("notice", "Sorry, the insert failed.")
+    res.status(501).render("account/editAccount", {
+    title: "Update " + itemName,
+    nav,
+    errors: null,
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_type,
+    account_password
+    })
+  }
+}
   
   module.exports = { 
     buildLogin, 
@@ -149,6 +227,9 @@ async function buildAccount(req, res, next) {
     registerAccount, 
     accountLogin,
     buildManagment,
-    buildAccount, 
+    buildAccount,
+    getAccountJSON,
+    updateAccountView,
+    updateAccount, 
     }
   

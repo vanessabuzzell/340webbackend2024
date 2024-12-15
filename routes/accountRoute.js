@@ -36,4 +36,17 @@ router.post(
   // Route to build login view
 router.get("/account", utilities.handleErrors(accController.buildAccount))
 
+//get inventory json route
+router.get("/getAccount/:account_id", utilities.handleErrors(accController.getAccountJSON))
+
+// Route to build update car Inventory view
+router.get("/editAccount", utilities.handleErrors(accController.updateAccountView));
+
+router.post(
+  "/editAccount",
+  regValidate.registationRules(),
+  regValidate.checkRegData,
+  utilities.handleErrors(accController.updateAccount)
+   )
+
 module.exports = router;
